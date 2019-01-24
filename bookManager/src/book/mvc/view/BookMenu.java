@@ -1,5 +1,6 @@
 package book.mvc.view;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +18,7 @@ public class BookMenu {
 	//도서 관리 메뉴창
 	public void displayMenu() {
 		int no;
+		Book b = new Book();
 		do {
 			System.out.print("*** 도서 관리 프로그램 ***\n\r"
 				+ "1. 도서 추가    => BookController 의 insertBook(Book객체)호출\n"
@@ -30,11 +32,11 @@ public class BookMenu {
 			no = sc.nextInt();
 			switch(no) {
 			case 1 : bControll.insertBook(inputBook()); break;
-			case 2 : break;
-			case 3 : break;
-			case 4 : break;
-			case 5 : break;
-			case 6 : break;
+			case 2 : bControll.updateBook(inputBook(b)); break;
+			case 3 : bControll.deleteBook(inputBookId()); break;
+			case 4 : displayBook(bControll.searchBook(inputBookId())); break;
+			case 5 : displayBook(bControll.searchBookTitle(inputBookTitle())); break;
+			case 6 : displayBooks(bControll.selectAll()); break;
 			case 9 : System.out.println("종료(y), 취소(n)");
 				if(sc.next().toLowerCase().charAt(0) == 'y') {
 					return;
@@ -49,37 +51,61 @@ public class BookMenu {
 
 	// 새 도서정보 키보드 입력용
 	public Book inputBook() {
-		return null;
+		Book b = new Book();
+		
+		System.out.print("책 제목 :");
+		sc.nextLine();
+		b.setTitle(sc.nextLine());
+		System.out.print("저자명 :");
+		b.setAuthor(sc.nextLine());
+		System.out.print("출판사명 :");
+		b.setPublisher(sc.next());
+		System.out.print("출판날짜[yyyy-MM-dd] :");
+		b.setPublishDate(Date.valueOf(sc.next()));
+		System.out.print("가격 :");
+		b.setPrice(sc.nextInt());
+		
+		return b;
 	}
 
 	// 수정도서정보 키보드 입력용
 	public Book inputBook(Book b) {
-		return null;
+		System.out.print("\n변경할 책 번호 :");
+		b.setBookId(sc.nextInt());
+		System.out.print("변경할 가격 : ");
+		b.setPrice(sc.nextInt());
+		return b;
 	}
 
 	// 검색/삭제할 도서 아이디 입력용
 	public int inputBookId() {
-		return 0;
+		System.out.print("책 아이디 :");
+		return sc.nextInt();
 	}
 
 	// 도서제목 키보드 입력용
 	public String inputBookTitle() {
-		return null;
+		System.out.print("도서제목 :");
+		return sc.next();
 	}
 
 	// 도서목록 출력용
 	public void displayBooks(List<Book> list) {
+		System.out.println(list.size() + "권의 책이 등록됬습니다.");
 		
+		for(Book b : list) {
+			System.out.println(b);
+		}
 	}
 
 	// 도서 출력용
 	public void displayBook(Book b) {
-	
+		System.out.println(b);
 	}
 
 	// 에러메세지 출력용
 	public void displayError(String message) {
-	
+		
 	}
 	
 }
