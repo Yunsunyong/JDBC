@@ -40,9 +40,9 @@ public class EmployeeMenu {
 			case 3: printList(econtroll.selectJobId(inputJobId())); break;
 			case 4: printList(econtroll.selectDeptId(inputDeptId())); break;
 			case 5: econtroll.insertEmployee(inputEmployee()); break;
-			case 6: break;
-			case 7: break;
-			case 8: break;
+			case 6: econtroll.updatePhone(inputPhone()); break;
+			case 7: econtroll.updateBonusPct(inputBonusPct()); break;
+			case 8: econtroll.deleteEmployee(inputEmpId()); break;
 			case 9: System.out.println("\n종료(y), 취소(n) :");
 					if(sc.next().toUpperCase().charAt(0) == 'Y') {
 						return;
@@ -55,6 +55,28 @@ public class EmployeeMenu {
 		} while(true);
 	}
 	
+	//수정할 보너스포인트와 해당 사번 입력용
+	public Employee inputBonusPct() {
+		Employee emp = new Employee();
+		System.out.print("\n변경할 직원의 사번 :");
+		emp.setEmpId(sc.next());
+		System.out.print("변경할 보너스포인트 :");
+		emp.setBonusPct(sc.nextDouble());
+		
+		return emp;
+	}
+	
+	//수정할 전화번호와 사번 입력용
+	public Employee inputPhone() {
+		Employee emp = new Employee();
+		System.out.print("\n변경할 직원의 사번 :");
+		emp.setEmpId(sc.next());
+		System.out.print("변경할 전화번호[-빼고 입력] :");
+		emp.setPhone(sc.next());
+		
+		return emp;
+	}
+
 	//새로 등록할 직원 정보 입력용
 	public Employee inputEmployee() {
 		Employee emp = new Employee();
